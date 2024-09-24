@@ -1,6 +1,5 @@
 import {
   Column,
-  AfterLoad,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
@@ -47,14 +46,6 @@ export class UserEntity extends EntityRelationalHelper {
   @Column({ nullable: true })
   @Exclude({ toPlainOnly: true })
   password?: string;
-
-  @Exclude({ toPlainOnly: true })
-  public previousPassword?: string;
-
-  @AfterLoad()
-  public loadPreviousPassword(): void {
-    this.previousPassword = this.password;
-  }
 
   @ApiProperty({
     type: String,

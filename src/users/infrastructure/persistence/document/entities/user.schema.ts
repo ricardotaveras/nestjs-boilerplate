@@ -37,9 +37,6 @@ export class UserSchemaClass extends EntityDocumentHelper {
   @Prop()
   password?: string;
 
-  @Exclude({ toPlainOnly: true })
-  previousPassword?: string;
-
   @ApiProperty({
     type: String,
     example: 'email',
@@ -118,9 +115,5 @@ export class UserSchemaClass extends EntityDocumentHelper {
 }
 
 export const UserSchema = SchemaFactory.createForClass(UserSchemaClass);
-
-UserSchema.virtual('previousPassword').get(function () {
-  return this.password;
-});
 
 UserSchema.index({ 'role._id': 1 });

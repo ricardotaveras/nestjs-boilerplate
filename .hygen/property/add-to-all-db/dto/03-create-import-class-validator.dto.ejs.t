@@ -5,7 +5,7 @@ before: export class Create<%= name %>Dto
 skip_if: "} from 'class-validator'"
 ---
 <% if (isAddToDto) { -%>
-import {
-  // decorators here
-} from 'class-validator';
+  import {
+    // decorators here
+  } from 'class-validator';
 <% } -%>

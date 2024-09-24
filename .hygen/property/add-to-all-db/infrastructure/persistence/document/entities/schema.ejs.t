@@ -4,6 +4,25 @@ to: src/<%= h.inflection.transform(name, ['pluralize', 'underscore', 'dasherize'
 after: export class <%= name %>SchemaClass
 ---
 
-@ApiProperty()
-@Prop()
-<%= property %>: <%= type %>;
+<% if (kind === 'reference') { -%>
+  <% if (referenceType === 'oneToOne') { -%>
+    @Prop({
+      type: mongoose.Schema.Types.ObjectId,
+      ref: '<%= type %>SchemaClass',
+      autopopulate: true,
+    })
+    <%= property %>: <%= type %>SchemaClass;
+  <% } else if (referenceType === 'oneToMany' || referenceType === 'manyToMany') { -%>
+    @Prop({
+      type: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: '<%= type %>SchemaClass',
+        autopopulate: true,
+      }]
+    })
+    <%= property %>: <%= type %>SchemaClass[];
+  <% } -%>
+<% } else { -%>
+  @Prop()
+  <%= property %>: <%= type %>;
+<% } -%>

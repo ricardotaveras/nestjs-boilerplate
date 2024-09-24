@@ -1,11 +1,9 @@
 ---
 inject: true
 to: src/<%= h.inflection.transform(name, ['pluralize', 'underscore', 'dasherize']) %>/dto/create-<%= h.inflection.transform(name, ['underscore', 'dasherize']) %>.dto.ts
-before: export class Create<%= name %>Dto
-skip_if: "} from '@nestjs/swagger'"
+before: "} from 'class-validator'"
+skip_if: \IsNotEmptyObject,
 ---
-<% if (isAddToDto) { -%>
-import { 
-  // decorators here
-} from '@nestjs/swagger';
+<% if (isAddToDto && kind === 'reference' && referenceType === 'oneToOne') { -%>
+  IsNotEmptyObject,
 <% } -%>

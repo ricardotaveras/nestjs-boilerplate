@@ -32,6 +32,7 @@ module.exports = [
   {
     type: 'select',
     name: 'type',
+    message: 'Property type',
     choices: ['string', 'number', 'boolean'],
   },
   {

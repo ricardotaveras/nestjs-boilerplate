@@ -1,9 +1,9 @@
 ---
 inject: true
 to: src/<%= h.inflection.transform(name, ['pluralize', 'underscore', 'dasherize']) %>/dto/create-<%= h.inflection.transform(name, ['underscore', 'dasherize']) %>.dto.ts
-before: "} from '@nestjs/swagger'"
-skip_if: \ApiProperty,
+before: "} from 'class-validator'"
+skip_if: \IsArray,
 ---
-<% if (isAddToDto) { -%>
-ApiProperty,
+<% if (isAddToDto && kind === 'reference' && (referenceType === 'oneToMany' || referenceType === 'manyToMany')) { -%>
+  IsArray,
 <% } -%>
